@@ -12,17 +12,24 @@ public class ContaService {
     @Autowired
     private ContaRepository contaRepository;
 
-    public Conta salvarConta(Conta conta){
+    public Conta salvarConta(Conta conta) {
         conta.setDataDeVencimento(LocalDate.now());
         return contaRepository.save(conta);
     }
+    /*public Conta atualizarConta(){
 
+    }
+    public Conta atualizarConta(){}
+    public Conta deletarConta(){}
+    public Conta exibirConta(int id){}
+    public List<Conta> exibirTodasAsContas(){
 
-    /*
-salvarConta()
+    salvarConta()
 atualizarConta()
 deletarConta()
 exibirConta()
 exibirTodasAsContas()
+
+
      */
 }
