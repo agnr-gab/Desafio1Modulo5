@@ -1,2 +1,28 @@
-package br.com.zup.GerenciadorContas.model;public class Conta {
+package br.com.zup.GerenciadorContas.model;
+
+import br.com.zup.GerenciadorContas.enums.Status;
+import br.com.zup.GerenciadorContas.enums.Tipo;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "gerenciador")
+public class Conta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String nome;
+    private double valor;
+    private Tipo tipo;
+    private LocalDate dataDeVencimento;
+    private LocalDateTime dataDePagamento;
+    private Status status;
 }
