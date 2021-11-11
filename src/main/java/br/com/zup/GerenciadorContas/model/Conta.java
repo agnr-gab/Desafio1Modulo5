@@ -2,6 +2,7 @@ package br.com.zup.GerenciadorContas.model;
 
 import br.com.zup.GerenciadorContas.enums.Status;
 import br.com.zup.GerenciadorContas.enums.Tipo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Conta {
     private double valor;
     private Tipo tipo;
     private LocalDate dataDeVencimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private LocalDateTime dataDePagamento;
     private Status status;
 }
