@@ -24,7 +24,6 @@ public class Conta {
     private double valor;
     private Tipo tipo;
     private LocalDate dataDeVencimento;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private LocalDateTime dataDePagamento;
     private Status status;
 }
