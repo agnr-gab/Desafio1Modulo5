@@ -21,8 +21,8 @@ public class ContaService {
     private ModelMapper modelMapper;
 
     public Conta salvarConta(Conta conta) {
-        conta.setDataDeVencimento(LocalDate.now());
-        if (conta.getDataDeVencimento().isBefore(LocalDate.now())) {
+        LocalDate dataHoje = LocalDate.now();
+        if (conta.getDataDeVencimento().isBefore(dataHoje)) {
             conta.setStatus(Status.VENCIDA);
         } else {
             conta.setStatus(Status.AGUARDANDO);
