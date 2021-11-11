@@ -46,7 +46,7 @@ public class ContaController {
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
         Conta conta = contaService.atualizarConta(id);
         if (atualizarContaDTO.getStatus() == Status.PAGO) {
-            ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), br.com.zup.GerenciadorContas.dtos.ContaSaidaDTO.class);
+            ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), ContaSaidaDTO.class);
             return contaSaidaDTO;
         }
         throw new RuntimeException ("Já modificado");
