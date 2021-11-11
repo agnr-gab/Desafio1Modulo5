@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,16 @@ public class ContaService {
             conta.setStatus(Status.AGUARDANDO);
         }return contaRepository.save(conta);
     }
+
+    public Conta atualizarConta(int id){
+        Conta conta = buscarporID(id);
+        conta.setStatus(Status.PAGO);
+        conta.setDataDePagamento(LocalDateTime.now());
+        contaRepository.save(conta);
+
+        return conta;
+    }
+
     public Conta buscarporID (int id) {
         Optional<Conta> byId = contaRepository.findById(id);
         if (byId.isEmpty()) {
