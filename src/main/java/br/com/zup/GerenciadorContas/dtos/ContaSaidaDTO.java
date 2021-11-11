@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class ContaSaidaDTO {
     private int id;
     private String nome;
+    private double valor;
     private Tipo tipo;
     private LocalDateTime dataDeVencimento;
     private LocalDate dataDePagamento;
