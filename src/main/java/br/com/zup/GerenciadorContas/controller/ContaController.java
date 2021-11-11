@@ -3,6 +3,8 @@ package br.com.zup.GerenciadorContas.controller;
 import br.com.zup.GerenciadorContas.dtos.AtualizarContaDTO;
 import br.com.zup.GerenciadorContas.dtos.ContaDTO;
 import br.com.zup.GerenciadorContas.dtos.ContaExibicaoDTO;
+import br.com.zup.GerenciadorContas.dtos.ContaSaidaDTO;
+import br.com.zup.GerenciadorContas.enums.Status;
 import br.com.zup.GerenciadorContas.model.Conta;
 import br.com.zup.GerenciadorContas.service.ContaService;
 import org.modelmapper.ModelMapper;
@@ -39,5 +41,14 @@ public class ContaController {
         return listaExibicao;
     }
 
-
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
+        Conta conta = contaService.atualizarConta(id);
+        if (atualizarContaDTO.getStatus() == Status.PAGO) {
+            ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), br.com.zup.GerenciadorContas.dtos.ContaSaidaDTO.class);
+            return contaSaidaDTO;
+        }
+        throw new RuntimeException ("Já modificado");
+    }
 }
