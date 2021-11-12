@@ -53,17 +53,13 @@ public class ContaService {
         return listaDeTodasAsContas;
     }
 
-    public List<Conta> exibirConta(Integer id, String nome, Double valor, Status status, Tipo tipo) {
-        if (id != null) {
-            contaRepository.findAllById(id);
-        } else if (nome != null) {
-            contaRepository.findAllByNome(nome);
-        } else if (valor != null) {
-            contaRepository.findAllByValor(valor);
+    public List<Conta> exibirConta(Double valor, Status status, Tipo tipo) {
+        if (valor != null) {
+            return contaRepository.findAllByValor(valor);
         } else if (status != null) {
-            contaRepository.findAllByStatus(status);
+            return contaRepository.findAllByStatus(status);
         } else if (tipo != null) {
-            contaRepository.findAllByTipo(tipo);
+            return contaRepository.findAllByTipo(tipo);
         }
         List<Conta> listaDeContas = (List<Conta>) contaRepository.findAll();
         return listaDeContas;
