@@ -1,6 +1,7 @@
 package br.com.zup.GerenciadorContas.service;
 
 import br.com.zup.GerenciadorContas.enums.Status;
+import br.com.zup.GerenciadorContas.enums.Tipo;
 import br.com.zup.GerenciadorContas.exceptions.ContaNaoEncontradaException;
 import br.com.zup.GerenciadorContas.model.Conta;
 import br.com.zup.GerenciadorContas.repository.ContaRepository;
@@ -26,10 +27,11 @@ public class ContaService {
             conta.setStatus(Status.VENCIDA);
         } else {
             conta.setStatus(Status.AGUARDANDO);
-        }return contaRepository.save(conta);
+        }
+        return contaRepository.save(conta);
     }
 
-    public Conta atualizarConta(int id){
+    public Conta atualizarConta(int id) {
         Conta conta = buscarporID(id);
         conta.setStatus(Status.PAGO);
         conta.setDataDePagamento(LocalDateTime.now());
@@ -38,7 +40,7 @@ public class ContaService {
         return conta;
     }
 
-    public Conta buscarporID (int id) {
+    public Conta buscarporID(int id) {
         Optional<Conta> byId = contaRepository.findById(id);
         if (byId.isEmpty()) {
             throw new ContaNaoEncontradaException("Não encontrado");
@@ -51,7 +53,7 @@ public class ContaService {
         return listaDeTodasAsContas;
     }
 
-    public List<Conta> exibirConta(Integer id, String nome, Double valor, Status status) {
+    public List<Conta> exibirConta(Integer id, String nome, Double valor, Status status, Tipo tipo) {
         if (id != null) {
             contaRepository.findAllById(id);
         } else if (nome != null) {
@@ -60,22 +62,11 @@ public class ContaService {
             contaRepository.findAllByValor(valor);
         } else if (status != null) {
             contaRepository.findAllByStatus(status);
+        } else if (tipo != null) {
+            contaRepository.findAllByTipo(tipo);
         }
         List<Conta> listaDeContas = (List<Conta>) contaRepository.findAll();
         return listaDeContas;
     }
-    /*
-    public Conta atualizarConta(){} ok
-    public Conta deletarConta(){}
-    public Conta exibirConta(int id){} ok
-    public List<Conta> exibirTodasAsContas(){
-
-    salvarConta()
-atualizarConta()
-deletarConta()
-exibirConta()
-exibirTodasAsContas()
-
-
-     */
 }
+
