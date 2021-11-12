@@ -27,9 +27,10 @@ public class ContaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarConta(@RequestBody @Valid ContaDTO contaDTO) {
+    public ContaSaidaDTO cadastrarConta(@RequestBody @Valid ContaDTO contaDTO) {
         Conta conta = modelMapper.map(contaDTO, Conta.class);
         contaService.salvarConta(conta);
+        return modelMapper.map(conta, ContaSaidaDTO.class);
     }
 
     @GetMapping("/{id}")
