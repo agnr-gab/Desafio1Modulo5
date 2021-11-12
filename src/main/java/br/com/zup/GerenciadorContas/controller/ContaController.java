@@ -8,6 +8,8 @@ import br.com.zup.GerenciadorContas.enums.Status;
 import br.com.zup.GerenciadorContas.enums.Tipo;
 import br.com.zup.GerenciadorContas.model.Conta;
 import br.com.zup.GerenciadorContas.service.ContaService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contas")
+@Api(value = "Gerenciador de Contas")
+@CrossOrigin(origins = "*")
 public class ContaController {
 
     @Autowired
@@ -27,6 +31,7 @@ public class ContaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Cadastro de contas")
     public ContaSaidaDTO cadastrarConta(@RequestBody @Valid ContaDTO contaDTO) {
         Conta conta = modelMapper.map(contaDTO, Conta.class);
         contaService.salvarConta(conta);
@@ -34,11 +39,13 @@ public class ContaController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Exibição das contas cadastradas")
     public ContaSaidaDTO exibirContaID(@PathVariable int id) {
         return modelMapper.map(contaService.buscarporID(id), ContaSaidaDTO.class);
     }
 
     @GetMapping
+    @ApiOperation(value = "Filtro das contas utilizando parametros")
     public List<ContaExibicaoDTO> exibirListaFiltro(@RequestParam(required = false) Double valor,
                                                     @RequestParam(required = false) Status status,
                                                     @RequestParam(required = false) Tipo tipo) {
@@ -52,6 +59,7 @@ public class ContaController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Atualizar o status de pagamento")
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
         // Conta conta = contaService.atualizarConta(id);
         if (atualizarContaDTO.getStatus() == Status.PAGO) {
@@ -63,6 +71,7 @@ public class ContaController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Deletar uma conta utilizando id como paramentro")
     public void deletarConta(@PathVariable int id) {
         contaService.deletarConta(id);
     }
