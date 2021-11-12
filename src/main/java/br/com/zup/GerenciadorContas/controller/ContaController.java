@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contas")
 public class ContaController {
+
     @Autowired
     private ContaService contaService;
     @Autowired
@@ -53,11 +53,18 @@ public class ContaController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
-       // Conta conta = contaService.atualizarConta(id);
+        // Conta conta = contaService.atualizarConta(id);
         if (atualizarContaDTO.getStatus() == Status.PAGO) {
             ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), ContaSaidaDTO.class);
             return contaSaidaDTO;
         }
         throw new RuntimeException("Já modificado");
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarConta(@PathVariable int id) {
+        contaService.deletarConta(id);
+    }
+
 }
