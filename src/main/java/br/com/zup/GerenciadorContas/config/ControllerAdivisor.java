@@ -1,7 +1,7 @@
 package br.com.zup.GerenciadorContas.config;
 
 import br.com.zup.GerenciadorContas.exceptions.ContaNaoEncontradaException;
-import br.com.zup.GerenciadorContas.exceptions.RequestException;
+import br.com.zup.GerenciadorContas.exceptions.StatusPagamentoInvalidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,9 @@ public class ControllerAdivisor {
         return new MensagemDeErro(exception.getMessage());
     }
 
-    @ExceptionHandler(RequestException.class)
+    @ExceptionHandler(StatusPagamentoInvalidoException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public MensagemDeErro manipularExcecaoMaRequisicao(RequestException exception) {
+    public MensagemDeErro manipularExcecaoMaRequisicao(StatusPagamentoInvalidoException exception) {
         return new MensagemDeErro(exception.getMessage());
     }
 
@@ -43,5 +44,11 @@ public class ControllerAdivisor {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public MensagemDeErro manipularErrosJson(HttpMessageNotReadableException exception){
         return new MensagemDeErro("Dado inserido incorretamente. Verifique!");
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public MensagemDeErro manipularErroFiltro(MethodArgumentTypeMismatchException exception){
+        return new MensagemDeErro("Filtro inserido incorretamente. Verifique!");
     }
 }
