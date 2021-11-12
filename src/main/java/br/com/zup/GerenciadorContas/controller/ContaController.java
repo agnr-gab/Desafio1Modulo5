@@ -5,6 +5,7 @@ import br.com.zup.GerenciadorContas.dtos.ContaDTO;
 import br.com.zup.GerenciadorContas.dtos.ContaExibicaoDTO;
 import br.com.zup.GerenciadorContas.dtos.ContaSaidaDTO;
 import br.com.zup.GerenciadorContas.enums.Status;
+import br.com.zup.GerenciadorContas.enums.Tipo;
 import br.com.zup.GerenciadorContas.model.Conta;
 import br.com.zup.GerenciadorContas.service.ContaService;
 import org.modelmapper.ModelMapper;
@@ -31,20 +32,17 @@ public class ContaController {
         contaService.salvarConta(conta);
     }
 
-    @GetMapping
-    public List<ContaExibicaoDTO> exibirLista() {
-        List<ContaExibicaoDTO> listaExibicao = new ArrayList<>();
-        for (Conta referencia : contaService.exibirTodasAsContas()) {
-            ContaExibicaoDTO contaExibicaoDTO = modelMapper.map(referencia, ContaExibicaoDTO.class);
-            listaExibicao.add(contaExibicaoDTO);
-        }
-        return listaExibicao;
+    @GetMapping("/{id}")
+    public ContaSaidaDTO exibirContaID(@PathVariable int id) {
+        return modelMapper.map(contaService.buscarporID(id), ContaSaidaDTO.class);
     }
 
-    @GetMapping("/{id}")
-    public List<ContaExibicaoDTO> exibirListaFiltro() {
+    @GetMapping
+    public List<ContaExibicaoDTO> exibirListaFiltro(@RequestParam(required = false) Double valor,
+                                                    @RequestParam(required = false) Status status,
+                                                    @RequestParam(required = false) Tipo tipo) {
         List<ContaExibicaoDTO> listaExibicao = new ArrayList<>();
-        for (Conta referencia : contaService.exibirTodasAsContas()) {
+        for (Conta referencia : contaService.exibirConta(valor, status, tipo)) {
             ContaExibicaoDTO contaExibicaoDTO = modelMapper.map(referencia, ContaExibicaoDTO.class);
             listaExibicao.add(contaExibicaoDTO);
         }
@@ -54,7 +52,7 @@ public class ContaController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
-        Conta conta = contaService.atualizarConta(id);
+       // Conta conta = contaService.atualizarConta(id);
         if (atualizarContaDTO.getStatus() == Status.PAGO) {
             ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), ContaSaidaDTO.class);
             return contaSaidaDTO;
