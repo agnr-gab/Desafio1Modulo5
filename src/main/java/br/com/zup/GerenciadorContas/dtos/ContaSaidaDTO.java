@@ -17,9 +17,9 @@ public class ContaSaidaDTO {
     private String nome;
     private double valor;
     private Tipo tipo;
-    private LocalDateTime dataDeVencimento;
+    private LocalDate dataDeVencimento;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate dataDePagamento;
+    private LocalDateTime dataDePagamento;
     private Status status;
 
 }
