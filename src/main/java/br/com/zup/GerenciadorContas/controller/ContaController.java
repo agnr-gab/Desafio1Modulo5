@@ -6,6 +6,7 @@ import br.com.zup.GerenciadorContas.dtos.ContaExibicaoDTO;
 import br.com.zup.GerenciadorContas.dtos.ContaSaidaDTO;
 import br.com.zup.GerenciadorContas.enums.Status;
 import br.com.zup.GerenciadorContas.enums.Tipo;
+import br.com.zup.GerenciadorContas.exceptions.StatusPagamentoInvalidoException;
 import br.com.zup.GerenciadorContas.model.Conta;
 import br.com.zup.GerenciadorContas.service.ContaService;
 import io.swagger.annotations.Api;
@@ -61,12 +62,11 @@ public class ContaController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Atualizar o status de pagamento")
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
-        // Conta conta = contaService.atualizarConta(id);
         if (atualizarContaDTO.getStatus() == Status.PAGO) {
             ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), ContaSaidaDTO.class);
             return contaSaidaDTO;
         }
-        throw new RuntimeException("Já modificado");
+        throw new StatusPagamentoInvalidoException("Digite um status válido");
     }
 
     @DeleteMapping("/{id}")
