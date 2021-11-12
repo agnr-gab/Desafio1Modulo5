@@ -39,13 +39,13 @@ public class ContaController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Exibição das contas cadastradas")
+    @ApiOperation(value = "Busca por id da conta")
     public ContaSaidaDTO exibirContaID(@PathVariable int id) {
         return modelMapper.map(contaService.buscarporID(id), ContaSaidaDTO.class);
     }
 
     @GetMapping
-    @ApiOperation(value = "Filtro das contas utilizando parametros")
+    @ApiOperation(value = "Filtro das contas utilizando parametros valor, status e tipo")
     public List<ContaExibicaoDTO> exibirListaFiltro(@RequestParam(required = false) Double valor,
                                                     @RequestParam(required = false) Status status,
                                                     @RequestParam(required = false) Tipo tipo) {
@@ -71,7 +71,7 @@ public class ContaController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Deletar uma conta utilizando id como paramentro")
+    @ApiOperation(value = "Deletar uma conta utilizando id como parametro")
     public void deletarConta(@PathVariable int id) {
         contaService.deletarConta(id);
     }
