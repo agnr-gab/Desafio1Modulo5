@@ -41,6 +41,16 @@ public class ContaController {
         return listaExibicao;
     }
 
+    @GetMapping
+    public List<ContaExibicaoDTO> exibirListaFiltro() {
+        List<ContaExibicaoDTO> listaExibicao = new ArrayList<>();
+        for (Conta referencia : contaService.exibirTodasAsContas()) {
+            ContaExibicaoDTO contaExibicaoDTO = modelMapper.map(referencia, ContaExibicaoDTO.class);
+            listaExibicao.add(contaExibicaoDTO);
+        }
+        return listaExibicao;
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ContaSaidaDTO atualizarConta(@PathVariable int id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
@@ -49,6 +59,6 @@ public class ContaController {
             ContaSaidaDTO contaSaidaDTO = modelMapper.map(contaService.atualizarConta(id), ContaSaidaDTO.class);
             return contaSaidaDTO;
         }
-        throw new RuntimeException ("Já modificado");
+        throw new RuntimeException("Já modificado");
     }
 }
