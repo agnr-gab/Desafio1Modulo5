@@ -64,5 +64,14 @@ public class ContaService {
         List<Conta> listaDeContas = (List<Conta>) contaRepository.findAll();
         return listaDeContas;
     }
+
+    public void deletarConta(int id) {
+        if (contaRepository.existsById(id)) {
+            contaRepository.deleteById(id);
+        } else {
+            throw new ContaNaoEncontradaException("Não encontrado");
+        }
+
+    }
 }
 
