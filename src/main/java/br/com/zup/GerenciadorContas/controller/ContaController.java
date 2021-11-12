@@ -41,7 +41,7 @@ public class ContaController {
         return listaExibicao;
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public List<ContaExibicaoDTO> exibirListaFiltro() {
         List<ContaExibicaoDTO> listaExibicao = new ArrayList<>();
         for (Conta referencia : contaService.exibirTodasAsContas()) {
