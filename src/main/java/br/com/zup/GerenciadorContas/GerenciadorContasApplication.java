@@ -13,8 +13,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class GerenciadorContasApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GerenciadorContasApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GerenciadorContasApplication.class, args);
+    }
 
 }

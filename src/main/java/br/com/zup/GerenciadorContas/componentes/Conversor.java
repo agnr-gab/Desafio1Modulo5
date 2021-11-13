@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Conversor {
 
-   @Bean
-    public ModelMapper modelMapper(){
+    @Bean
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 }

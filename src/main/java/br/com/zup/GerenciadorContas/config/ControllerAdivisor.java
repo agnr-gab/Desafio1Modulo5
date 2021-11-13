@@ -42,13 +42,13 @@ public class ControllerAdivisor {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MensagemDeErro manipularErrosJson(HttpMessageNotReadableException exception){
+    public MensagemDeErro manipularErrosJson(HttpMessageNotReadableException exception) {
         return new MensagemDeErro("Dado inserido incorretamente. Verifique!");
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemDeErro manipularErroFiltro(MethodArgumentTypeMismatchException exception){
+    public MensagemDeErro manipularErroFiltro(MethodArgumentTypeMismatchException exception) {
         return new MensagemDeErro("Filtro inserido incorretamente. Verifique!");
     }
 }

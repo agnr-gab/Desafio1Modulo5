@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class ContaExibicaoDTO {
+
     private int id;
     private String nome;
     private double valor;

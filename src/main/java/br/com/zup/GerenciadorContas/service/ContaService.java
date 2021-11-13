@@ -16,8 +16,10 @@ import java.util.Optional;
 
 @Service
 public class ContaService {
+
     @Autowired
     private ContaRepository contaRepository;
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -71,7 +73,7 @@ public class ContaService {
         } else {
             throw new ContaNaoEncontradaException("Não encontrado");
         }
-
     }
+
 }
 
